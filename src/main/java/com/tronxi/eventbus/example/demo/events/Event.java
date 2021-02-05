@@ -5,10 +5,10 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class EventType2 {
+public class Event {
     String message;
 
-    public EventType2() {
-        message = "event type 2";
+    public Event() {
+        message = "Event message";
     }
 }

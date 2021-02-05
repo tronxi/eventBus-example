@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class EventBusConfiguration {
     @Bean
     public EventBus eventBus() {
-        //return new EventBus();
-        return new AsyncEventBus(Executors.newCachedThreadPool());
+        return new EventBus();
+        //return new AsyncEventBus(Executors.newCachedThreadPool());
     }
 }

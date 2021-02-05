@@ -2,7 +2,7 @@ package com.tronxi.eventbus.example.demo.handlers;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.tronxi.eventbus.example.demo.events.EventType2;
+import com.tronxi.eventbus.example.demo.events.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 
 @Component
 @RequiredArgsConstructor
-public class EventType2Handler {
+public class EventHandler {
 
     private final EventBus eventBus;
 
@@ -20,7 +20,8 @@ public class EventType2Handler {
     }
 
     @Subscribe
-    public void handler(EventType2 event) {
-        System.out.println("EventType2 handler: " + event);
+    public void handler(Event event) {
+        System.out.println("Event handler: " + event);
+        throw new RuntimeException();
     }
 }

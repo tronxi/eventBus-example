@@ -1,8 +1,8 @@
 package com.tronxi.eventbus.example.demo.controllers;
 
-import com.google.common.eventbus.EventBus;
-import com.tronxi.eventbus.example.demo.events.EventType1;
-import com.tronxi.eventbus.example.demo.events.EventType2;
+import com.tronxi.eventbus.example.demo.usecases.NonTransactionalCollaboratorUseCase;
+import com.tronxi.eventbus.example.demo.usecases.TransactionalCollaboratorUseCase;
+import com.tronxi.eventbus.example.demo.usecases.EventBusUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,19 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EventController {
 
-    private final EventBus eventBus;
+    private final TransactionalCollaboratorUseCase transactionalCollaboratorUseCase;
+    private final NonTransactionalCollaboratorUseCase nonTransactionalCollaboratorUseCase;
+    private final EventBusUseCase eventBusUseCase;
 
-    @GetMapping("/event/1")
-    public ResponseEntity<Void> sendEventType1() {
-        EventType1 eventType1 = new EventType1();
-        eventBus.post(eventType1);
+    @GetMapping("/step/collaborator/transactional")
+    public ResponseEntity<Void> transactional() {
+        transactionalCollaboratorUseCase.persist();
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/event/2")
-    public ResponseEntity<Void> sendEventType2() {
-        EventType2 eventType2 = new EventType2();
-        eventBus.post(eventType2);
+    @GetMapping("/step/collaborator/nonTransactional")
+    public ResponseEntity<Void> nonTransactional() {
+        nonTransactionalCollaboratorUseCase.persist();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/step/bus")
+    public ResponseEntity<Void> transactionalEventBus() {
+        eventBusUseCase.persist();
         return ResponseEntity.ok().build();
     }
 }
